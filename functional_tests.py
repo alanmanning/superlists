@@ -1,5 +1,7 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
+import time
 
 
 class NewVisitorTest(unittest.TestCase):
@@ -16,22 +18,35 @@ class NewVisitorTest(unittest.TestCase):
 		#superlists website in his web browser
 		self.browser.get('http://localhost:8000')
 
-		#He notices the page title has "To-Do dlists in it"
+		#He notices the page title and header has "To-Do dlists in it"
 		self.assertIn('To-Do', self.browser.title)
-
-		self.fail('Finish the test!')
-
-		#He also notices the word "To-Do" in the page header
+		header_text = self.browser.find_element_by_tag_name('h1').text
+		self.assertIn('To-Do', header_text)
 
 		#He sees an invitation to enter a to-do item right away
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		self.assertEqual(
+			inputbox.get_attribute('placeholder'),
+			'Enter a to-do item'
+		)
 
 		#He types "learn French" into the text box
+		inputbox.send_keys('Learn French')
 
 		#When he hits enter, the page updates, and the page lists:
 		# "1: learn French"
+		inputbox.send_keys(Keys.ENTER)
+		time.sleep(1)
+
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_element_by_tag_name('tr')
+		self.assertTrue(
+			any(row.text == '1: Learn French' for row in rows)
+		)
 
 		#There is another text box to add another item. He types,
 		# "enroll in an ornithology class"
+		self.fail('Finish the test!')
 
 		#He hits enter, and the page lists both items
 
