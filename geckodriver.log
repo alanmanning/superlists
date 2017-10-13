@@ -14,3 +14,37 @@
 1507869602469	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost:8000/"
 1507869602517	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost:8000/"
 1507869602907	Marionette	INFO	New connections will no longer be accepted
+1507869810463	geckodriver	INFO	geckodriver 0.19.0
+1507869810473	geckodriver	INFO	Listening on 127.0.0.1:57801
+1507869811980	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.hU7Jln4WOWYY"
+1507869812597	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///opt/firefox/omni.ja!/components/addonManager.js:65
+1507869813505	Marionette	INFO	Enabled via --marionette
+1507869817071	Marionette	INFO	Listening on port 37437
+1507869817138	Marionette	WARN	TLS certificate errors will be ignored for this session
+1507869817279	Marionette	DEBUG	Register listener.js for window 2147483649
+1507869817426	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1507869817475	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1507869817475	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1507869817507	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost:8000/"
+1507869817515	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost:8000/"
+1507869818130	Marionette	INFO	New connections will no longer be accepted
+[Child 14270] WARNING: pipe error (15): Connection reset by peer: file /home/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[Child 14270] WARNING: pipe error (3): Connection reset by peer: file /home/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1507869969408	geckodriver	INFO	geckodriver 0.19.0
+1507869969418	geckodriver	INFO	Listening on 127.0.0.1:50875
+1507869970931	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.sYeDc5QQJOTh"
+1507869971512	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///opt/firefox/omni.ja!/components/addonManager.js:65
+1507869972371	Marionette	INFO	Enabled via --marionette
+1507869975674	Marionette	INFO	Listening on port 34249
+1507869975796	Marionette	WARN	TLS certificate errors will be ignored for this session
+1507869975899	Marionette	DEBUG	Register listener.js for window 2147483649
+1507869976059	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1507869976119	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1507869976120	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1507869976139	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost:8000/"
+1507869976196	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost:8000/"
+1507869978048	Marionette	INFO	New connections will no longer be accepted
+[Child 14850] WARNING: pipe error (15): Connection reset by peer: file /home/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[Child 14850] WARNING: pipe error (3): Connection reset by peer: file /home/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
