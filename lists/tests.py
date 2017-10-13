@@ -15,8 +15,13 @@ class HomePageTest(TestCase):
 
 	def test_home_page_view_returns_correct_html(self):
 		response = self.client.get('/')
-		html = response.content.decode('utf8')
-		expected_html = render_to_string('home.html')
-		self.assertEqual(html,expected_html)
+		# html = response.content.decode('utf8')
+		# expected_html = render_to_string('home.html')
+		# self.assertEqual(html,expected_html)
 		self.assertTemplateUsed(response,'home.html')
+
+	def test_can_save_a_POST_request(self):
+		response = self.client.post('/',data={'item_text' : 'A new list item'})
+		html = response.content.decode('utf8')
+		self.assertIn('A new list item',html)
 
