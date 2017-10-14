@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
 import time
+import pdb
 
 
 class NewVisitorTest(unittest.TestCase):
@@ -34,16 +35,28 @@ class NewVisitorTest(unittest.TestCase):
 		inputbox.send_keys('Learn French')
 
 		#When he hits enter, the page updates, and the page lists:
-		# "1: learn French"
 		inputbox.send_keys(Keys.ENTER)
-		time.sleep(1)
+		time.sleep(2)	
 
+
+		#He sees that "what he has typed is now on the page"
+		# "1: learn French"
 		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_element_by_tag_name('tr')
-		self.assertTrue(
-			any(row.text == '1: Learn French' for row in rows),
-			'New to-do item did not appear in table'
-		)
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertIn('1: Learn French', [row.text for row in rows])
+
+		#He types another To-Do item in the text box and submits it
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		inputbox.send_keys('Seduce French cats')
+		inputbox.send_keys(Keys.ENTER)
+		time.sleep(2)
+
+
+		#He now sees that both items are displayed on the to-do list
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertIn('1: Learn French', [row.text for row in rows])
+		self.assertIn('2: Seduce French cats', [row.text for row in rows])
 
 		#There is another text box to add another item. He types,
 		# "enroll in an ornithology class"
