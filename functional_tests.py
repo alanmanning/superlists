@@ -31,32 +31,16 @@ class NewVisitorTest(unittest.TestCase):
 			'Enter a to-do item'
 		)
 
-		#He types "learn French" into the text box
-		inputbox.send_keys('Learn French')
-
-		#When he hits enter, the page updates, and the page lists:
-		inputbox.send_keys(Keys.ENTER)
-		time.sleep(2)	
-
-
-		#He sees that "what he has typed is now on the page"
-		# "1: learn French"
+		test_items = ['Learn French', 'Seduce French cats']
+		for todo in test_items:
+			inputbox = self.browser.find_element_by_id('id_new_item')
+			inputbox.send_keys(todo)
+			inputbox.send_keys(Keys.ENTER)
+			time.sleep(2)
 		table = self.browser.find_element_by_id('id_list_table')
 		rows = table.find_elements_by_tag_name('tr')
-		self.assertIn('1: Learn French', [row.text for row in rows])
-
-		#He types another To-Do item in the text box and submits it
-		inputbox = self.browser.find_element_by_id('id_new_item')
-		inputbox.send_keys('Seduce French cats')
-		inputbox.send_keys(Keys.ENTER)
-		time.sleep(2)
-
-
-		#He now sees that both items are displayed on the to-do list
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')
-		self.assertIn('1: Learn French', [row.text for row in rows])
-		self.assertIn('2: Seduce French cats', [row.text for row in rows])
+		self.assertEqual(len(test_items),len(rows),
+			'For rows only got: ' + str([row.text for row in rows]))
 
 		#There is another text box to add another item. He types,
 		# "enroll in an ornithology class"
