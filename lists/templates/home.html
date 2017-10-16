@@ -9,8 +9,8 @@
     {% csrf_token %}
     </form>
     <table id="id_list_table">
-    {% for item in list_items %}
-        <tr><td>{{ item.text }}</td></tr>
+    {% for item in todo_items %}
+        <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
     {% endfor %}
     </table>
 </body>
