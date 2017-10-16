@@ -1,11 +1,15 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import WebDriverException
 import unittest
 import time
 import pdb
 
+MAX_WAIT = 10
 
-class NewVisitorTest(unittest.TestCase):
+
+class NewVisitorTest(LiveServerTestCase):
 
 	def setUp(self):
 		self.browser = webdriver.Firefox()
@@ -13,11 +17,28 @@ class NewVisitorTest(unittest.TestCase):
 	def tearDown(self):
 		self.browser.quit()
 
+	def wait_for_DOM_item(self,id):
+		start_time = time.time()
+		while True:
+			try:
+				DOM_item = self.browser.find_element_by_id(id)
+				return DOM_item
+			except (AssertionError, WebDriverException) as e:
+					if time.time() - start_time > MAX_WAIT:
+						raise e
+					time.sleep(0.5)
+
+	def check_row_in_list_table(self, row_text):
+		table = self.wait_for_DOM_item('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertIn(row_text, [row.text for row in rows])
+		return
+
 	#tests to be run have to start with test
 	def test_can_start_list_and_retrieve_later(self):
 		#Harry becomes sentient and decides to write a to-do. He goes to the
 		#superlists website in his web browser
-		self.browser.get('http://localhost:8000')
+		self.browser.get(self.live_server_url)
 
 		#He notices the page title and header has "To-Do dlists in it"
 		self.assertIn('To-Do', self.browser.title)
@@ -33,14 +54,15 @@ class NewVisitorTest(unittest.TestCase):
 
 		test_items = ['Learn French', 'Seduce French cats']
 		for todo in test_items:
-			inputbox = self.browser.find_element_by_id('id_new_item')
+			inputbox = self.wait_for_DOM_item('id_new_item')
 			inputbox.send_keys(todo)
 			inputbox.send_keys(Keys.ENTER)
-			time.sleep(2)
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')
-		self.assertEqual(len(test_items),len(rows),
-			'For rows only got: ' + str([row.text for row in rows]))
+			time.sleep(0.5)
+		
+		for i in range(len(test_items)):
+			todo = test_items[i]
+			self.check_row_in_list_table('%i: %s' % (i+1,todo))
+
 
 		#There is another text box to add another item. He types,
 		# "enroll in an ornithology class"
@@ -55,7 +77,3 @@ class NewVisitorTest(unittest.TestCase):
 		#Harry goes to that unique url--and the to-do list is still there
 
 		#Harry then sleeps
-
-
-if __name__ == '__main__':
-	unittest.main()
