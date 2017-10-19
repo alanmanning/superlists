@@ -78,6 +78,37 @@ class NewVisitorTest(LiveServerTestCase):
 		list1_url = self.browser.current_url
 		self.assertRegex(list1_url, '/lists/.+')
 
+		#Now another user, Rosie, from another computer, comes along
+		self.browser.quit()
+		self.browser = webdriver.PhantomJS()
+
+		#She vists the homepage. There's no items from Harry's list there
+		self.browser.get(self.live_server_url)
+		page_text = self.browser.find_element_by_tag_name('body').text
+		self.assertNotIn('Sleep in the sun', page_text)
+		self.assertNotIn('Learn French', page_text)
+		self.assertNotIn('Hunt birds', page_text)
+
+		#Rosie adds a new to-do item
+		inputbox = self.wait_for_DOM_item('id_new_item')
+		inputbox.send_keys('Use the litterbox')
+		inputbox.send_keys(Keys.ENTER)
+
+		#He notices that this has been added to the list
+		self.check_row_in_list_table('1: User the litterbox')
+
+		#Rosie notices the list has a unique URL:
+		list2_url = self.browser.current_url
+		self.assertRegex(list1_url, '/lists/.+')
+		self.assertNotEqual(list1_url,list2_url)
+
+		#There's still nothing from Harry's list on her page
+		self.browser.get(self.live_server_url)
+		page_text = self.browser.find_element_by_tag_name('body').text
+		self.assertNotIn('Sleep in the sun', page_text)
+		self.assertNotIn('Learn French', page_text)
+		self.assertNotIn('Hunt birds', page_text)
+
 
 		#Harry notices an explanation saying that the site has
 		#saved his list permanently using a unique url (the page lists
