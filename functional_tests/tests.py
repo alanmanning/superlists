@@ -35,7 +35,7 @@ class NewVisitorTest(LiveServerTestCase):
 		return
 
 	#tests to be run have to start with test
-	def test_can_start_list_and_retrieve_later(self):
+	def test_can_start_list_for_one_user(self):
 		#Harry becomes sentient and decides to write a to-do. He goes to the
 		#superlists website in his web browser
 		self.browser.get(self.live_server_url)
@@ -52,7 +52,7 @@ class NewVisitorTest(LiveServerTestCase):
 			'Enter a to-do item'
 		)
 
-		test_items = ['Learn French', 'Seduce French cats']
+		test_items = ['Learn French', 'Hunt birds']
 		for todo in test_items:
 			inputbox = self.wait_for_DOM_item('id_new_item')
 			inputbox.send_keys(todo)
@@ -64,11 +64,20 @@ class NewVisitorTest(LiveServerTestCase):
 			self.check_row_in_list_table('%i: %s' % (i+1,todo))
 
 
-		#There is another text box to add another item. He types,
-		# "enroll in an ornithology class"
-		self.fail('Finish the test!')
+	def test_multiple_users_can_start_lists_at_different_urls(self):
+		#Harry starts a new to-do list
+		self.browser.get(self.live_server_url)
+		inputbox = self.wait_for_DOM_item('id_new_item')
+		inputbox.send_keys('Sleep in the sun')
+		inputbox.send_keys(Keys.ENTER)
 
-		#He hits enter, and the page lists both items
+		#He notices that this has been added to the list
+		self.check_row_in_list_table('1: Sleep in the sun')
+
+		#He notices the list has a unique URL:
+		list1_url = self.browser.current_url
+		self.assertRegex(list1_url, '/lists/.+')
+
 
 		#Harry notices an explanation saying that the site has
 		#saved his list permanently using a unique url (the page lists
