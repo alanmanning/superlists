@@ -77,3 +77,10 @@ class NewVisitorTest(LiveServerTestCase):
 		#Harry goes to that unique url--and the to-do list is still there
 
 		#Harry then sleeps
+
+
+####### TODO ########
+# -Change the model so that items are associated with a unique list
+# -Associate each list with a unique url
+# -Want URL to make a new list
+# -Want URL to add a new list item.
