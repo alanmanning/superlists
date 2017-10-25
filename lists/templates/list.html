@@ -1,0 +1,14 @@
+<html>
+<head>
+<title>To-Do Lists</title>
+</head>
+<body>
+    <h1>Your To-Do lists</h1>
+    </form>
+    <table id="id_list_table">
+    {% for item in todo_items %}
+        <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
+    {% endfor %}
+    </table>
+</body>
+</html>

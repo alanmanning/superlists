@@ -8,10 +8,9 @@
     <input id="id_new_item" name='item_text' placeholder="Enter a to-do item" />
     {% csrf_token %}
     </form>
-    <p><a href="/lists/new/">Create a new list</a></p>
     <table id="id_list_table">
-    {% for list in all_lists %}
-        <tr><td><a href="/lists/{{ list.id }}">{{ list.id }}</a></td></tr>
+    {% for item in todo_items %}
+        <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
     {% endfor %}
     </table>
 </body>

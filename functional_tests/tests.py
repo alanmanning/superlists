@@ -1,7 +1,8 @@
-from django.test import LiveServerTestCase
+from django.test import LiveServerTestCase, TestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
+from lists.models import List
 import unittest
 import time
 import pdb
@@ -12,8 +13,8 @@ MAX_WAIT = 10
 class NewVisitorTest(LiveServerTestCase):
 
 	def setUp(self):
-#		self.browser = webdriver.PhantomJS()
-		self.browser = webdriver.Firefox()
+		self.browser = webdriver.PhantomJS()
+#		self.browser = webdriver.Firefox()
 
 	def tearDown(self):
 		self.browser.quit()
