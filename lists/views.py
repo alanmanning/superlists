@@ -6,17 +6,6 @@ from lists.models import Item, List
 
 
 def home_page(request):
-    if request.method == 'POST':
-        new_item_text = request.POST['item_text']
-
-        list_ = List.objects.create()
-        item = Item(text=new_item_text, list=list_)
-        item.text = new_item_text
-        item.save()
-        # Item.objects.create(text=new_item_text)
-        # print('Made a new item and saved it in db')
-        return redirect('/lists/a-unique-url')
-
     all_lists = List.objects.all()
     return render(request,'home.html',{'all_lists' : all_lists})
     # items = Item.objects.all()
@@ -26,11 +15,23 @@ def home_page(request):
 
 def view_list(request,list_id):
     list_ = List.objects.get(id=list_id)
-    items = Item.objects.filter(list=list_)
-    ret = render(request,'list.html',{'todo_items' : items})
+    ret = render(request,'list.html',{'the_list' : list_})
     return ret
 
 
 def new_list(request):
-    ret = render(request,'new_list.html')
-    return ret
+    new_list = List()
+    new_list.save()
+    return redirect('/lists/%i/' % new_list.id)
+
+
+def add_item(request,list_id):
+    if request.method == 'POST':
+        new_item_text = request.POST['item_text']
+        list_ = List.objects.get(id=list_id)
+        item = Item(text=new_item_text, list=list_)
+        item.text = new_item_text
+        item.save()
+        # Item.objects.create(text=new_item_text)
+        # print('Made a new item and saved it in db')
+    return redirect('/lists/%i/' % int(list_id))
